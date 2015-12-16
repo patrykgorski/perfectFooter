@@ -1,28 +1,23 @@
-function perfectFooter(footerClass, heightAboveElement){
-	this.nameElement = footerClass || '.pf';
-	this.$footer = $(this.nameElement);
-	this.sElement = heightAboveElement || 'body';
-	this.count = (this.checkElementHeight()+this.checkFooterHeight());
-}
-perfectFooter.prototype.checkElementHeight = function(){
-	return $(this.sElement).innerHeight();
-}
-perfectFooter.prototype.checkFooterHeight = function(){
-	return $(this.$footer).innerHeight();
-}
-perfectFooter.prototype.setPositionFooter = function(){
-	if(window.innerHeight>this.count){
-		this.$footer.css({'position':'absolute', 'bottom':0, 'margin':0});
-		this.count = (this.checkElementHeight()+this.checkFooterHeight());
-	}else{
-		if(this.$footer.attr('style')){
-			var remove = this.$footer.attr('style').replace(/(position: absolute;)|(bottom: 0px;)|(margin: 0px;)/igm, '');
-			//this.$footer.removeClass('pf-position');
-			this.$footer.attr('style', remove);
-		}
-		this.count = this.checkElementHeight();
-	}	
-}
-$(window).resize(function(){
-	pf.setPositionFooter();
-})	
+(function($){
+	$.fn.perfectFooter = function(){
+		var heightDocument = $('html').innerHeight(),
+			settings = {};
+		return this.each(function(){
+			var self = this;
+			settings.count = heightDocument+$(self).innerHeight();
+			$(window).on('load resize', function(){
+				heightDocument = $('html').innerHeight();
+				if(window.innerHeight>settings.count){
+					$(self).css({'position':'absolute', 'bottom':0, 'margin':0});
+					settings.count = heightDocument+$(self).innerHeight();
+				}else{
+					if($(self).attr('style')){
+						var remove = $(self).attr('style').replace(/(position: absolute;)|(bottom: 0px;)|(margin: 0px;)/igm, '');
+						$(self).attr('style', remove);
+					}
+					settings.count = heightDocument;
+				}
+			})	
+		})
+	}
+})(jQuery)
