@@ -5,26 +5,14 @@ The perfect footer is a simple plugin that allows you to set foot always on the 
 
 1. Download the plug and attach to your project
 ```html
-  <script src="js/perfectFooter.js"></script>
+  <script src="js/perfectFooter-min.js"></script>
 ```
 2. Add new tag in your HTML "script" and paste this code
 ```javascript
-  var pf = new perfectFooter();
+  $('footer').perfectFooter();
 ```
-3. Add class "pf" in your footer
-```html
-  <footer class="pf">
-```
+#### DONE
 
-### Custom setting
-
-```javascript
-  var pf = new perfectFooter(element, aboveElement);
-  /*
-  element = your tag or class footer default .pf
-  aboveElement = default body
-  */
-```
 
 
 
